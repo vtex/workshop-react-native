@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "eslint-config-vtex",
+    "eslint-config-vtex-react"
+  ]
+}
