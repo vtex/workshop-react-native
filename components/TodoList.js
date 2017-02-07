@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import {
+  ActivityIndicator,
   View,
   Text,
   ListView,
@@ -88,11 +89,19 @@ class TodoList extends Component {
   }
 
   render() {
+    const loadingComponent = (this.state.loading) ? (
+      <ActivityIndicator
+        size="large"
+        color="#333"
+        style={styles.loading}
+      />) : null
+
     return (
       <View style={styles.container}>
         <View style={styles.labelContainer}>
           <Text style={styles.tasksLabel}>My tasks</Text>
         </View>
+        {loadingComponent}
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderItem}
@@ -116,6 +125,9 @@ const styles = StyleSheet.create({
   },
   tasksLabel: {
     marginRight: 10,
+  },
+  loading: {
+    marginTop: 100,
   },
   listview: {
     flex: 1,
