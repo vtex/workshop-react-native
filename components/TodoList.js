@@ -12,6 +12,7 @@ import autobind from 'autobind-decorator'
 import {
   listenForItems,
   itemEquals,
+  removeItem,
 } from '../utils/data'
 
 import type { // eslint-disable-line no-duplicate-imports
@@ -57,11 +58,17 @@ class TodoList extends Component {
   }
 
   @autobind
+  handleRemoveItem(item: itemType) {
+    removeItem(item)
+  }
+
+  @autobind
   renderItem(item: itemType) {
     return (
       <Row
         key={item.id}
         item={item}
+        onRemove={this.handleRemoveItem}
       />
     )
   }

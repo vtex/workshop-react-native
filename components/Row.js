@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import {
   View,
   Text,
+  Button,
   StyleSheet,
 } from 'react-native'
 
@@ -13,6 +14,7 @@ import type { // eslint-disable-line no-duplicate-imports
 
 type PropType = {
   item: itemType,
+  onRemove: (item: itemType) => void,
 };
 
 class Row extends Component {
@@ -39,6 +41,12 @@ class Row extends Component {
     return (
       <View style={styles.container}>
         <Text style={titleStyle}>{item.title}</Text>
+        <Button
+          onPress={() => this.props.onRemove(item)}
+          title="X"
+          color="#333"
+          accessibilityLabel="Remove task"
+        />
       </View>
     )
   }
