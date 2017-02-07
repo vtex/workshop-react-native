@@ -12,6 +12,7 @@ import autobind from 'autobind-decorator'
 import {
   listenForItems,
   itemEquals,
+  updateItem,
   removeItem,
 } from '../utils/data'
 
@@ -63,12 +64,21 @@ class TodoList extends Component {
   }
 
   @autobind
+  handleToggleComplete(item: itemType) {
+    updateItem({
+      ...item,
+      completed: !item.completed,
+    })
+  }
+
+  @autobind
   renderItem(item: itemType) {
     return (
       <Row
         key={item.id}
         item={item}
         onRemove={this.handleRemoveItem}
+        onSwitch={this.handleToggleComplete}
       />
     )
   }

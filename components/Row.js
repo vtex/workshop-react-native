@@ -5,6 +5,7 @@ import {
   View,
   Text,
   Button,
+  Switch,
   StyleSheet,
 } from 'react-native'
 
@@ -15,6 +16,7 @@ import type { // eslint-disable-line no-duplicate-imports
 type PropType = {
   item: itemType,
   onRemove: (item: itemType) => void,
+  onSwitch: (item: itemType) => void,
 };
 
 class Row extends Component {
@@ -39,6 +41,11 @@ class Row extends Component {
 
     return (
       <View style={styles.container}>
+        <Switch
+          onValueChange={() => this.props.onSwitch(item)}
+          value={item.completed}
+          style={styles.changeSwitch}
+        />
         <Text style={titleStyle}>{item.title}</Text>
         <Button
           onPress={() => this.props.onRemove(item)}
@@ -61,6 +68,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  changeSwitch: {
+    height: lineHeight,
   },
   title: {
     color: '#333',
