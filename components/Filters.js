@@ -4,20 +4,24 @@ import React from 'react'
 import {
   Platform,
   View,
+  Text,
   Button,
   StyleSheet,
 } from 'react-native'
 
 import {
   FILTER_TYPES,
+  filterItems,
 } from '../utils/data'
 
 import type { // eslint-disable-line no-duplicate-imports
   filterType,
+  itemType,
 } from '../utils/data'
 
 type PropType = {
   filter: filterType,
+  items: Array<itemType>,
   onFilterChange: (filter: filterType) => void,
 };
 
@@ -47,6 +51,9 @@ const Filter = ({ activeFilter, filterChange, title, accessibilityLabel, onFilte
 }
 
 const Filters = (props: PropType) => {
+  const activeItems = filterItems(props.items, FILTER_TYPES.ACTIVE)
+  const activeItemsMessage = `${activeItems.length} active tasks`
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -72,6 +79,7 @@ const Filters = (props: PropType) => {
           onFilterChange={props.onFilterChange}
         />
       </View>
+      <Text style={styles.activeItemsMessage}>{activeItemsMessage}</Text>
     </View>
   )
 }
@@ -96,6 +104,10 @@ const styles = StyleSheet.create({
     height: 30,
     lineHeight: 30,
     marginLeft: 10,
+  },
+  activeItemsMessage: {
+    fontSize: 16,
+    width: 80,
   },
 })
 
