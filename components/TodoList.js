@@ -80,6 +80,14 @@ class TodoList extends Component {
   }
 
   @autobind
+  handleEditItem(item: itemType, title: string) {
+    updateItem({
+      ...item,
+      title,
+    })
+  }
+
+  @autobind
   handleFilterChange(filter: filterType) {
     const items = this.state.items
     if (items) {
@@ -95,6 +103,7 @@ class TodoList extends Component {
       <Row
         key={item.id}
         item={item}
+        onEdit={this.handleEditItem}
         onRemove={this.handleRemoveItem}
         onSwitch={this.handleToggleComplete}
       />
