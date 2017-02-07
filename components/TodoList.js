@@ -13,10 +13,11 @@ import autobind from 'autobind-decorator'
 import {
   FILTER_TYPES,
   listenForItems,
-  itemEquals,
   filterItems,
+  itemEquals,
   updateItem,
   removeItem,
+  updateItems,
 } from '../utils/data'
 
 import type { // eslint-disable-line no-duplicate-imports
@@ -61,6 +62,27 @@ class TodoList extends Component {
     })
   }
 
+  getActiveItemsCount(): number {
+    if (!this.state.items) {
+      return 0
+    }
+    const activeItems = filterItems(this.state.items, FILTER_TYPES.ACTIVE)
+    return activeItems.length
+  }
+
+  updateItemsWithValue(value: Object) {
+    if (!this.state.items) {
+      return
+    }
+
+    const newItems = this.state.items.map((item: itemType) => ({
+      ...item,
+      ...value,
+    }))
+
+    updateItems(newItems)
+  }
+
   @autobind
   handleItemsChanged(items: Array<itemType>) {
     this.setSource(items, this.state.filter, { loading: false })
@@ -77,6 +99,16 @@ class TodoList extends Component {
       ...item,
       completed: !item.completed,
     })
+  }
+
+  @autobind
+  handleToggleAll() {
+    const activeCount = this.getActiveItemsCount()
+    if (activeCount === 0) {
+      this.updateItemsWithValue({ completed: false })
+    } else {
+      this.updateItemsWithValue({ completed: true })
+    }
   }
 
   @autobind
@@ -122,10 +154,17 @@ class TodoList extends Component {
         style={styles.loading}
       />) : null
 
+    const activeCount = this.getActiveItemsCount()
+    const toggleLabel = (activeCount === 0) ? '(mark all as uncompleted)' : '(mark all as completed)'
+    const toggleElement = (
+      <Text style={styles.toggleLabel} onPress={this.handleToggleAll}>{toggleLabel}</Text>
+    )
+
     return (
       <View style={styles.container}>
         <View style={styles.labelContainer}>
           <Text style={styles.tasksLabel}>My tasks</Text>
+          {(this.state.items && this.state.items.length > 0) ? toggleElement : null }
         </View>
         {loadingComponent}
         <ListView
@@ -156,6 +195,10 @@ const styles = StyleSheet.create({
   },
   tasksLabel: {
     marginRight: 10,
+  },
+  toggleLabel: {
+    color: '#61DAFB',
+    textDecorationLine: 'underline',
   },
   loading: {
     marginTop: 100,
