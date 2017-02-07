@@ -11,17 +11,21 @@ import {
 import autobind from 'autobind-decorator'
 
 import {
+  FILTER_TYPES,
   listenForItems,
   itemEquals,
+  filterItems,
   updateItem,
   removeItem,
 } from '../utils/data'
 
 import type { // eslint-disable-line no-duplicate-imports
+  filterType,
   itemType,
 } from '../utils/data'
 
 import Row from './Row'
+import Filters from './Filters'
 
 type PropType = {
 };
@@ -32,6 +36,7 @@ class TodoList extends Component {
     loading: boolean,
     dataSource: Object,
     items: ?Array<itemType>,
+    filter: filterType,
   }
 
   constructor(props: PropType) {
@@ -40,15 +45,17 @@ class TodoList extends Component {
     this.state = {
       loading: true,
       items: null,
+      filter: FILTER_TYPES.ALL,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1: itemType, row2: itemType) => !itemEquals(row1, row2),
       }),
     }
   }
 
-  setSource(items: Array<itemType>, extraState?: Object) {
+  setSource(items: Array<itemType>, filter: filterType, extraState?: Object) {
+    const filteredItems = filterItems(items, filter)
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(items),
+      dataSource: this.state.dataSource.cloneWithRows(filteredItems),
       items,
       ...extraState,
     })
@@ -56,7 +63,7 @@ class TodoList extends Component {
 
   @autobind
   handleItemsChanged(items: Array<itemType>) {
-    this.setSource(items, { loading: false })
+    this.setSource(items, this.state.filter, { loading: false })
   }
 
   @autobind
@@ -70,6 +77,16 @@ class TodoList extends Component {
       ...item,
       completed: !item.completed,
     })
+  }
+
+  @autobind
+  handleFilterChange(filter: filterType) {
+    const items = this.state.items
+    if (items) {
+      this.setSource(
+        items, filter, { filter: filter }
+      )
+    }
   }
 
   @autobind
@@ -108,6 +125,11 @@ class TodoList extends Component {
           style={styles.listview}
           enableEmptySections
         />
+        {(this.state.items) ? <Filters
+          filter={this.state.filter}
+          items={this.state.items}
+          onFilterChange={this.handleFilterChange}
+        /> : null}
       </View>
     )
   }
