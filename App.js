@@ -10,11 +10,14 @@ import {
 
 import logo from './assets/imgs'
 
+import TodoList from './components/TodoList'
+
 const RNTodoWorkshop = () => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#EEE" barStyle="dark-content" />
       <Image style={styles.logo} source={logo} />
+      <TodoList />
     </View>
   )
 }
