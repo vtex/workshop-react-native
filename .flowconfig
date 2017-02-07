@@ -25,6 +25,7 @@ flow/
 module.system=haste
 
 experimental.strict_type_args=true
+esproposal.decorators=ignore
 
 munge_underscores=true
 

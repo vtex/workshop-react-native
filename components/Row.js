@@ -20,7 +20,6 @@ type PropType = {
 class Row extends Component {
   props: PropType
   state: {
-    title: string,
   }
 
   constructor(props: PropType) {
