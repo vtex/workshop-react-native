@@ -9,7 +9,7 @@ npm install -g react-native-cli yarn
 ```
 
 ```shell
-react-native init MyTodoApp
+react-native init RNTodoWorkshop
 ```
 
 Create your App.js with Hello World content and edit your index.android.js and index.ios.js to use it.
