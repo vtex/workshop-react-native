@@ -140,3 +140,7 @@ See this repository for other examples: https://github.com/guilhermebruzzi/rnExa
 ## Presentation
 
 You can download the original presentation of this workshop here: https://www.dropbox.com/s/subacw2atz0vklf/RNVTEX_Workshop.key?dl=0
+
+## Video of the last workshop Presentation
+
+Workshop on 08 of february of 2017 at VTEX: https://www.youtube.com/watch?v=uXkgDXrHVkg
