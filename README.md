@@ -139,7 +139,10 @@ See this repository for other examples: https://github.com/guilhermebruzzi/rnExa
 
 ## Presentation
 
-You can download the original presentation of this workshop here: https://www.dropbox.com/s/subacw2atz0vklf/RNVTEX_Workshop.key?dl=0
+You can download the original presentation of this workshop here:
+
+Keynote (mac): https://www.dropbox.com/s/subacw2atz0vklf/RNVTEX_Workshop.key?dl=0
+PDF: https://www.dropbox.com/s/iiizrai57lc4gud/RNVTEX_Workshop.pdf?dl=0
 
 ## Video of the last workshop Presentation
 
